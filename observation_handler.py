@@ -1,15 +1,13 @@
-from location_handler import LocationHandler
 import json
-from pprint import pprint
 import urllib
+from location_handler import LocationHandler
 
-class ObservationHandler(object):
 
-    location_handler = LocationHandler()
-    data = []
+'''
+Collect and handle weather observation data for the past 24 hours for a given location.
+Provides the data in a list, with each list entry representing the following values
+on an hourly basis.
 
-    #return a tuple of 24 hour weather data for a given location.
-    '''
     G (mph) Wind Gust
     T (C) Temperature
     V (m) Visibility
@@ -20,13 +18,20 @@ class ObservationHandler(object):
     Pt (Pa/s) Pressure Tendency
     Dp (C) Dew Point
     H (%) Screen Relative Humidity
-    '''
+
+'''
+
+class ObservationHandler(object):
+
+    location_handler = LocationHandler()
+    data = []
+
     def get_weather_observation_data(self, location):
-        self.location = location
         location_id = self.location_handler.get_location_id(location)
 
         #do some error handling for this. Not all locations can be queried for weather observations
-        location_url = "http://datapoint.metoffice.gov.uk/public/data/val/wxobs/all/json/" + location_id[0] + "?res=hourly&key=7247916d-91ac-4de7-84e1-088c23dd8432"
+        location_url = "http://datapoint.metoffice.gov.uk/public/data/val/wxobs/all/json/" + \
+        location_id[0] + "?res=hourly&key=7247916d-91ac-4de7-84e1-088c23dd8432"
         #try catch
 
         response = urllib.urlopen(location_url)
@@ -61,6 +66,7 @@ class ObservationHandler(object):
         #Return the 24 hour data
         return hourly_data
 
+    #Print the hourly data
     def print_hourly_data(self):
         for hour in data:
             print hour
