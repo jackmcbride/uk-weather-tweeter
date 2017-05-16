@@ -3,7 +3,7 @@ import json
 from pprint import pprint
 import urllib
 
-class DataHandler(object):
+class ObservationHandler(object):
 
     location_handler = LocationHandler()
 
@@ -25,15 +25,19 @@ class DataHandler(object):
 
         #do some error handling for this. Not all locations can be queried for weather observations
         location_url = "http://datapoint.metoffice.gov.uk/public/data/val/wxobs/all/json/" + location_id[0] + "?res=hourly&key=7247916d-91ac-4de7-84e1-088c23dd8432"
+        #try catch
+
 
         response = urllib.urlopen(location_url)
-        
+
         data = json.load(response)
 
         record = data['SiteRep']['DV']
 
         #return 24 hour of weather observation, split into two dates 
         location_record = record['Location']['Period']
+
+        print record['Location']['name'] + ": 24Hr weather observation" 
 
         print "Day 1: "
         pprint(location_record[0]['Rep'])
