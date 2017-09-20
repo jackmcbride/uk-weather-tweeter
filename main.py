@@ -4,6 +4,11 @@ import sys
 
 api_key = "7247916d-91ac-4de7-84e1-088c23dd8432"
 
+'''WRITE COMMAND PARSER CLASS FOR READING IN TERMINAL COMMANDS
+REFACTOR TO TWEET PARSER CLASS FOR TWEETS
+'''
+
+
 def main():
     #Parse for either a weather observation, or a weather forecast.
     #locationparser.parse_obs_json_payload("Gravesend-Broadness")
